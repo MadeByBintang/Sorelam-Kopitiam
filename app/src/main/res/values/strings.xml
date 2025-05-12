@@ -1,0 +1,115 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Sorelam Kopitiam</string>
+    <string name="app_name_splash">SORELAM KOPITIAM</string>
+
+    <!-- Splash -->
+    <string name="splash">splash</string>
+    <string name="main">main</string>
+    <string name="splash_background_desc">Background</string>
+    <string name="splash_icon_desc">Splash Icon</string>
+
+    <!-- Navigation & Top Bar -->
+    <string name="back">Back</string>
+    <string name="details">Details</string>
+    <string name="cart">Cart</string>
+    <string name="good_morning">Good morning</string>
+    <string name="profile">Profile</string>
+    <string name="my_order">My Order</string>
+    <string name="rewards">Rewards</string>
+
+    <!-- Bottom Navigation Descriptions -->
+    <string name="nav_store">Store Navigation Item</string>
+    <string name="nav_gift">Gift Navigation Item</string>
+    <string name="nav_receipt">Receipt Navigation Item</string>
+
+    <!-- Profile -->
+    <string name="label_full_name">Full name</string>
+    <string name="label_phone_number">Phone number</string>
+    <string name="label_email">Email</string>
+    <string name="value_full_name">Anderson</string>
+    <string name="value_phone_number">+60134589525</string>
+    <string name="value_email">Anderson@email.com</string>
+    <string name="edit">Edit</string>
+
+    <!-- Points & Loyalty -->
+    <string name="my_points">My Points:</string>
+    <string name="redeem_drinks">Redeem drinks</string>
+    <string name="loyalty_card">Loyalty card</string>
+    <string name="loyalty_cup">Loyalty cup %1$d</string>
+    <string name="points_format">+ %1$d Pts</string>
+
+    <!-- Tabs -->
+    <string name="tab_on_going">On going</string>
+    <string name="tab_history">History</string>
+
+    <!-- Order Success -->
+    <string name="order_success">Order Success</string>
+    <string name="order_success_message">Your order has been placed successfully.\nFor more details, go to my orders.</string>
+    <string name="track_my_order">Track My Order</string>
+
+    <!-- History -->
+    <string name="history_rewards">History Rewards</string>
+    <string name="history_rewards_title">History Rewards</string>
+
+    <!-- Order Confirmation -->
+    <string name="order_confirmation">Order Confirmation</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="cash">Cash</string>
+    <string name="cash_desc">Tunai di tempat</string>
+    <string name="cash_icon">Cash Icon</string>
+
+    <!-- Cart -->
+    <string name="my_cart">My Cart</string>
+    <string name="total_price">Total Price</string>
+    <string name="total_price_value">$9.00</string>
+    <string name="checkout">Checkout</string>
+    <string name="item_detail">single | iced | medium | full ice</string>
+    <string name="quantity">x1</string>
+    <string name="add_to_cart">Add to cart</string>
+
+    <!-- Price Breakdown -->
+    <string name="subtotal">Subtotal</string>
+    <string name="subtotal_value">$9.00</string>
+    <string name="tax">Tax (10%)</string>
+    <string name="tax_value">$0.90</string>
+    <string name="delivery_fee">Delivery fee</string>
+    <string name="delivery_fee_value">$2.00</string>
+    <string name="total_price_value_order">$11.20</string>
+    <string name="confirm_order">Confirm Order</string>
+
+    <!-- Prices (unified) -->
+    <string name="price_3">$3.00</string>
+
+    <!-- Coffee Products -->
+    <string name="coffee_americano">Americano</string>
+    <string name="coffee_cappuccino">Cappuccino</string>
+    <string name="coffee_flat_white">Flat White</string>
+    <string name="coffee_cafe_latte">Cafe Latte</string>
+    <string name="coffee_green_tea_latte">Green Tea Latte</string>
+    <string name="coffee_mocha">Mocha</string>
+
+    <!-- Modifiers -->
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+    <string name="shot">Shot</string>
+    <string name="single">Single</string>
+    <string name="dabel">Double</string>
+    <string name="select">Select</string>
+    <string name="size">Size</string>
+    <string name="ice">Ice</string>
+    <string name="less">Less</string>
+    <string name="standart">Standard</string>
+    <string name="extra">Extra</string>
+    <string name="total_amount">Total Amount</string>
+
+    <!-- Sample Text -->
+    <string name="choose_your_coffee">Choose your coffee</string>
+    <string name="user_name_anderson">Anderson</string>
+
+    <!-- Sample Dates (de-duped) -->
+    <string name="date_sample_1">24 June | 12:30 PM</string>
+    <string name="date_sample_2">22 June | 08:30 AM</string>
+    <string name="date_sample_3">16 June | 10:48 AM</string>
+    <string name="date_sample_4">12 May | 11:25 AM</string>
+</resources>
