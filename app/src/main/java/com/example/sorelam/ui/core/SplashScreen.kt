@@ -40,14 +40,15 @@ fun SplashScreen() {
                     .size(100.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Text(
                 text = stringResource(id = R.string.app_name_splash),
-                fontSize = 18.sp,
+                fontSize = 26.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.height(70.dp))
         }
     }
 }
