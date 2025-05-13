@@ -1,2 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!-- Nama Aplikasi -->
+    <string name="app_name">Sorelam Kopitiam</string>
+    <string name="app_name_splash">SORELAM KOPITIAM</string>
+
+    <!-- Splash -->
+    <string name="splash">splash</string>
+    <string name="main">utama</string>
+    <string name="splash_background_desc">Latar Belakang</string>
+    <string name="splash_icon_desc">Ikon Splash</string>
+
+    <!-- Navigasi & Top Bar -->
+    <string name="back">Kembali</string>
+    <string name="details">Rincian</string>
+    <string name="cart">Keranjang</string>
+    <string name="good_morning">Selamat pagi</string>
+    <string name="profile">Profil</string>
+    <string name="my_order">Pesanan Saya</string>
+    <string name="rewards">Hadiah</string>
+
+    <!-- Deskripsi Navigasi Bawah -->
+    <string name="nav_store">Item Navigasi Toko</string>
+    <string name="nav_gift">Item Navigasi Hadiah</string>
+    <string name="nav_receipt">Item Navigasi Struk</string>
+
+    <!-- Profil -->
+    <string name="label_full_name">Nama Lengkap</string>
+    <string name="label_phone_number">Nomor Telepon</string>
+    <string name="label_email">Email</string>
+    <string name="value_full_name">Anderson</string>
+    <string name="value_phone_number">+60134589525</string>
+    <string name="value_email">Anderson@email.com</string>
+    <string name="edit">Edit</string>
+
+    <!-- Poin & Loyalitas -->
+    <string name="my_points">Poin Saya:</string>
+    <string name="redeem_drinks">Tebus Minuman</string>
+    <string name="loyalty_card">Kartu Loyalitas</string>
+    <string name="loyalty_cup">Cangkir Loyalitas %1$d</string>
+    <string name="points_format">+ %1$d Pts</string>
+
+    <!-- Tab -->
+    <string name="tab_on_going">Sedang Berjalan</string>
+    <string name="tab_history">Riwayat</string>
+
+    <!-- Sukses Pesanan -->
+    <string name="order_success">Pesanan Berhasil</string>
+    <string name="order_success_message">Pesanan Anda telah berhasil ditempatkan.\nUntuk detail lebih lanjut, buka pesanan saya.</string>
+    <string name="track_my_order">Lacak Pesanan Saya</string>
+
+    <!-- Riwayat -->
+    <string name="history_rewards">Riwayat Hadiah</string>
+    <string name="history_rewards_title">Riwayat Hadiah</string>
+
+    <!-- Konfirmasi Pesanan -->
+    <string name="order_confirmation">Konfirmasi Pesanan</string>
+    <string name="payment_method">Metode Pembayaran</string>
+    <string name="cash">Tunai</string>
+    <string name="cash_desc">Tunai di tempat</string>
+    <string name="cash_icon">Ikon Tunai</string>
+
+    <!-- Keranjang -->
+    <string name="my_cart">Keranjang Saya</string>
+    <string name="total_price">Total Harga</string>
+    <string name="total_price_value">Rp9.000</string>
+    <string name="checkout">Checkout</string>
+    <string name="item_detail">tunggal | es | sedang | es penuh</string>
+    <string name="quantity">x1</string>
+    <string name="add_to_cart">Tambah ke keranjang</string>
+
+    <!-- Rincian Harga -->
+    <string name="subtotal">Subtotal</string>
+    <string name="subtotal_value">Rp9.000</string>
+    <string name="tax">Pajak (10%)</string>
+    <string name="tax_value">Rp900</string>
+    <string name="delivery_fee">Biaya Pengiriman</string>
+    <string name="delivery_fee_value">Rp2.000</string>
+    <string name="total_price_value_order">Rp11.200</string>
+    <string name="confirm_order">Konfirmasi Pesanan</string>
+
+    <!-- Harga (terpadu) -->
+    <string name="price_3">Rp3.000</string>
+
+    <!-- Produk Kopi -->
+    <string name="coffee_americano">Americano</string>
+    <string name="coffee_cappuccino">Cappuccino</string>
+    <string name="coffee_flat_white">Flat White</string>
+    <string name="coffee_cafe_latte">Cafe Latte</string>
+    <string name="coffee_green_tea_latte">Green Tea Latte</string>
+    <string name="coffee_mocha">Mocha</string>
+
+    <!-- Modifikasi -->
+    <string name="remove">Hapus</string>
+    <string name="add">Tambah</string>
+    <string name="shot">Shot</string>
+    <string name="single">Single</string>
+    <string name="dabel">Double</string>
+    <string name="select">Pilih</string>
+    <string name="size">Ukuran</string>
+    <string name="ice">Es</string>
+    <string name="less">Kurang</string>
+    <string name="standart">Standar</string>
+    <string name="extra">Ekstra</string>
+    <string name="total_amount">Jumlah Total</string>
+
+    <!-- Teks Sampel -->
+    <string name="choose_your_coffee">Pilih kopi Anda</string>
+    <string name="user_name_anderson">Anderson</string>
+
+    <!-- Tanggal Sampel (terduplikasi) -->
+    <string name="date_sample_1">24 Juni | 12:30 PM</string>
+    <string name="date_sample_2">22 Juni | 08:30 AM</string>
+    <string name="date_sample_3">16 Juni | 10:48 AM</string>
+    <string name="date_sample_4">12 Mei | 11:25 AM</string>
+</resources>
