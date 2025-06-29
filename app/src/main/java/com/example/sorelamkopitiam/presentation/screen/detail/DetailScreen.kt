@@ -59,7 +59,7 @@ fun DetailScreen(
         ) {
             TopBarDetail(
                 onBackClick = { navController.popBackStack() },
-                onCartClick = { navController.navigate(Screen.Cart.route) }
+                onCartClick = { navController.navigate(Screen.Main.Cart.route) }
             )
 
             Spacer(modifier = Modifier.height(16.dp))

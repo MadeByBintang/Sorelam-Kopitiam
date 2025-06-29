@@ -26,7 +26,7 @@ fun RewardsScreen(
         PointsCard(
             points = points,
             onRedeemClick = {
-                navController.navigate(Screen.Redeem.route)
+                navController.navigate(Screen.Main.Redeem.route)
             }
         )
 

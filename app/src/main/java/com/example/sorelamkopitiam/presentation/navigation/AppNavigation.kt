@@ -1,25 +1,44 @@
 package com.example.sorelamkopitiam.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sorelamkopitiam.presentation.screen.core.MainScreen
-import com.example.sorelamkopitiam.presentation.screen.splash.SplashEntryPoint
+import com.example.sorelamkopitiam.presentation.screen.splash.SplashScreen
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
+fun AppNavigation(
+    viewModel: AppNavigationViewModel = hiltViewModel()
+) {
+    val navController = rememberNavController() // Ini adalah rootNavController
+
+    val postSplashDestination = if (viewModel.isLoggedIn()) {
+        Screen.Main.route
+    } else {
+        Screen.Auth.route
+    }
 
     NavHost(
         navController = navController,
-        startDestination = "splash"
+        startDestination = Screen.Splash.route
     ) {
-        composable("splash") {
-            SplashEntryPoint()
+        composable(Screen.Splash.route) {
+            SplashScreen(
+                onTimeout = {
+                    navController.navigate(postSplashDestination) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    }
+                }
+            )
         }
-        composable("main") {
-            MainScreen()
+
+        authNavGraph(navController = navController)
+
+        composable(route = Screen.Main.route) {
+            // --- TERUSKAN ROOT NAV CONTROLLER KE MAINSCREEN ---
+            MainScreen(rootNavController = navController)
         }
     }
 }

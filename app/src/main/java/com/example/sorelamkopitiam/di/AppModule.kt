@@ -7,14 +7,21 @@ import com.example.sorelamkopitiam.data.local.dao.OrderDao
 import com.example.sorelamkopitiam.data.local.dao.RedeemDao
 import com.example.sorelamkopitiam.data.local.dao.RewardDao
 import com.example.sorelamkopitiam.data.local.database.AppDatabase
+import com.example.sorelamkopitiam.data.repository.AuthRepositoryImpl
 import com.example.sorelamkopitiam.data.repository.CartRepositoryImpl
 import com.example.sorelamkopitiam.data.repository.OrderRepositoryImpl
 import com.example.sorelamkopitiam.data.repository.RedeemRepositoryImpl
 import com.example.sorelamkopitiam.data.repository.RewardsRepositoryImpl
+import com.example.sorelamkopitiam.domain.repository.AuthRepository
 import com.example.sorelamkopitiam.domain.repository.CartRepository
 import com.example.sorelamkopitiam.domain.repository.OrderRepository
 import com.example.sorelamkopitiam.domain.repository.RedeemRepository
 import com.example.sorelamkopitiam.domain.repository.RewardsRepository
+import com.example.sorelamkopitiam.data.remote.AuthRemoteDataSource
+import com.example.sorelamkopitiam.domain.usecase.SignInUseCase
+import com.example.sorelamkopitiam.domain.usecase.SignUpUseCase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,4 +69,37 @@ object AppModule {
     @Provides
     fun provideRedeemRepository(dao: RedeemDao): RedeemRepository =
         RedeemRepositoryImpl(dao)
+
+    // ✅ Firebase
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideAuthRemoteDataSource(auth: FirebaseAuth, firestore: FirebaseFirestore): AuthRemoteDataSource {
+        return AuthRemoteDataSource(auth, firestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(remoteDataSource: AuthRemoteDataSource): AuthRepository {
+        // Karena AuthRepositoryImpl hanya punya 1 parameter, kita bisa langsung
+        return AuthRepositoryImpl(remoteDataSource)
+    }
+
+    // Use Cases tidak perlu @Singleton karena mereka stateless
+    @Provides
+    fun provideSignUpUseCase(repository: AuthRepository): SignUpUseCase {
+        return SignUpUseCase(repository)
+    }
+
+    @Provides
+    fun provideSignInUseCase(repository: AuthRepository): SignInUseCase {
+        return SignInUseCase(repository)
+    }
 }

@@ -2,43 +2,47 @@ package com.example.sorelamkopitiam.presentation.screen.core
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.sorelamkopitiam.presentation.navigation.BottomNavigationBar
 import com.example.sorelamkopitiam.presentation.navigation.Screen
-import com.example.sorelamkopitiam.presentation.navigation.MainNavigation
-import com.example.sorelamkopitiam.presentation.navigation.currentRoute
+import com.example.sorelamkopitiam.presentation.navigation.mainNavGraph
 
 @Composable
-fun MainScreen() {
-    val navController = rememberNavController()
+fun MainScreen(
+    // Parameter ini penting untuk navigasi keluar (sign out)
+    rootNavController: NavController
+) {
+    val mainNavController = rememberNavController()
+    val navBackStackEntry by mainNavController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
-    val currentRoute = currentRoute(navController)
     val hideBottomBarRoutes = listOf(
-        Screen.Cart.route,
-        Screen.Profile.route,
+        Screen.Main.Cart.route,
+        Screen.Main.Profile.route,
         Screen.Detail.route,
-        Screen.OrderSuccess.route,
-        Screen.Redeem.route // ✅ Tambahkan ini
+        Screen.Main.OrderSuccess.route,
+        Screen.Main.Redeem.route
     )
-    val showBottomBar = currentRoute !in hideBottomBarRoutes
+    val showBottomBar = !hideBottomBarRoutes.any { currentRoute?.startsWith(it.substringBefore('/')) == true }
+
 
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(currentRoute) {
         selectedIndex = when (currentRoute) {
-            Screen.Home.route -> 0
-            Screen.Rewards.route -> 1
-            Screen.Orders.route -> 2
-            else -> 0
+            Screen.Main.Home.route -> 0
+            Screen.Main.Rewards.route -> 1
+            Screen.Main.Orders.route -> 2
+            else -> selectedIndex
         }
     }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
         bottomBar = {
             AnimatedVisibility(
                 visible = showBottomBar,
@@ -48,26 +52,32 @@ fun MainScreen() {
                 BottomNavigationBar(
                     selectedIndex = selectedIndex,
                     onItemSelected = { index ->
-                        selectedIndex = index
-                        when (index) {
-                            0 -> navController.navigate(Screen.Home.route) {
-                                popUpTo(Screen.Home.route) { inclusive = true }
-                            }
-                            1 -> navController.navigate(Screen.Rewards.route) {
-                                popUpTo(Screen.Rewards.route) { inclusive = true }
-                            }
-                            2 -> navController.navigate(Screen.Orders.route) {
-                                popUpTo(Screen.Orders.route) { inclusive = true }
-                            }
+                        val route = when (index) {
+                            0 -> Screen.Main.Home.route
+                            1 -> Screen.Main.Rewards.route
+                            2 -> Screen.Main.Orders.route
+                            else -> Screen.Main.Home.route
+                        }
+                        mainNavController.navigate(route) {
+                            popUpTo(mainNavController.graph.startDestinationId)
+                            launchSingleTop = true
                         }
                     }
                 )
             }
         }
     ) { innerPadding ->
-        MainNavigation(
-            navController = navController,
-            innerPadding = innerPadding
-        )
+        // `innerPadding` yang disediakan oleh Scaffold sekarang diabaikan.
+        NavHost(
+            navController = mainNavController,
+            startDestination = Screen.Main.Home.route,
+            // HAPUS MODIFIER PADDING DARI SINI
+            // modifier = Modifier.padding(innerPadding)
+        ) {
+            mainNavGraph(
+                mainNavController = mainNavController,
+                rootNavController = rootNavController
+            )
+        }
     }
 }

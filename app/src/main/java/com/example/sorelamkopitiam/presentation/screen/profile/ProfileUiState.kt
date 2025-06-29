@@ -1,7 +1,10 @@
 package com.example.sorelamkopitiam.presentation.screen.profile
 
+import com.example.sorelamkopitiam.domain.model.User
+
+// State yang lebih lengkap untuk menangani semua kondisi UI
 data class ProfileUiState(
-    val fullName: String = "Anderson Leonardo",
-    val phoneNumber: String = "+62 812 3456 7890",
-    val email: String = "anderson@example.com"
+    val isLoading: Boolean = false,
+    val user: User? = null,
+    val error: String? = null
 )

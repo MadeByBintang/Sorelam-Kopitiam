@@ -5,6 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services") // <-- TAMBAHKAN PLUGIN INI
 }
 
 android {
@@ -93,6 +94,15 @@ dependencies {
     implementation("androidx.room:room-runtime:2.7.2")
     kapt("androidx.room:room-compiler:2.7.2")
     implementation("androidx.room:room-ktx:2.7.2")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx") // <-- Untuk menyimpan data user
+    implementation("com.google.android.gms:play-services-auth:21.3.0") // <-- Untuk Google Sign-In
+    implementation("com.google.firebase:firebase-appcheck-playintegrity") // <-- TAMBAHKAN INI
+    debugImplementation("com.google.firebase:firebase-appcheck-debug")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

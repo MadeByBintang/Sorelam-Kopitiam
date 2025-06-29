@@ -19,6 +19,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(onTimeout: () -> Unit) {
+    // Logika ini sudah benar, akan memanggil callback setelah 2 detik
     LaunchedEffect(Unit) {
         delay(2000)
         onTimeout()

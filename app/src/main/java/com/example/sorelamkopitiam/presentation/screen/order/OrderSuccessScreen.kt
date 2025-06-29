@@ -59,8 +59,8 @@ fun OrderSuccessScreen(
 
         Button(
             onClick = {
-                navController.navigate(Screen.Orders.route) {
-                    popUpTo(Screen.Home.route) { inclusive = false }
+                navController.navigate(Screen.Main.Orders.route) {
+                    popUpTo(Screen.Main.Home.route) { inclusive = false }
                 }
             },
             modifier = Modifier

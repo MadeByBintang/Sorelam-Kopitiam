@@ -42,8 +42,8 @@ fun CartScreen(
                 onConfirm = {
                     cartViewModel.checkout()
                     cartViewModel.toggleSheet(false)
-                    navController.navigate(Screen.OrderSuccess.route) {
-                        popUpTo(Screen.Home.route)
+                    navController.navigate(Screen.Main.OrderSuccess.route) {
+                        popUpTo(Screen.Main.Home.route)
                     }
                 }
             )

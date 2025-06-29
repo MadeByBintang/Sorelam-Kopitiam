@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874559762888",
+    "project_id": "sorelamkopitiam-fc66e",
+    "storage_bucket": "sorelamkopitiam-fc66e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874559762888:android:51a568b46caeaf6afc50fd",
+        "android_client_info": {
+          "package_name": "com.example.sorelamkopitiam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8HS06fkcz_K4UPIekfp2QuA6w15zoIKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

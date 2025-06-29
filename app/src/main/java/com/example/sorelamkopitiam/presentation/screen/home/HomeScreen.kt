@@ -4,10 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.sorelamkopitiam.R
 import com.example.sorelamkopitiam.presentation.component.common.PointsCard
 import com.example.sorelamkopitiam.presentation.component.home.CoffeeMenu
 import com.example.sorelamkopitiam.presentation.component.topbar.TopBar
@@ -20,6 +18,8 @@ fun HomeScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val points by viewModel.points.collectAsState()
+    // Ambil data user dari ViewModel
+    val user by viewModel.userState.collectAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -30,15 +30,16 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
             TopBar(
-                userName = stringResource(id = R.string.user_name_anderson),
-                onCartClick = { navController.navigate(Screen.Cart.route) },
-                onProfileClick = { navController.navigate(Screen.Profile.route) }
+                // Tampilkan nama pengguna, atau "Guest" jika belum ter-load
+                userName = user?.username ?: "Guest",
+                onCartClick = { navController.navigate(Screen.Main.Cart.route) },
+                onProfileClick = { navController.navigate(Screen.Main.Profile.route) }
             )
 
             PointsCard(
                 points = points,
                 onRedeemClick = {
-                    navController.navigate(Screen.Redeem.route)
+                    navController.navigate(Screen.Main.Redeem.route)
                 }
             )
             CoffeeMenu(

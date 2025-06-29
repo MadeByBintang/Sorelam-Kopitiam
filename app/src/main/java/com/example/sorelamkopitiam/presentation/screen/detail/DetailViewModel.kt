@@ -13,7 +13,13 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val cartRepository: CartRepository
 ) : ViewModel() {
-
+    data class DetailUiState(
+        val quantity: Int = 1,
+        val shot: String = "Single",
+        val select: String = "hot",
+        val size: String = "medium",
+        val ice: String = "less"
+    )
     private val _uiState = MutableStateFlow(DetailUiState())
     val uiState: StateFlow<DetailUiState> = _uiState
 
