@@ -18,8 +18,8 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
-    val points by viewModel.points.collectAsState()
+    val state by viewModel.state.collectAsState()  // Mengambil state dari ViewModel
+    val points by viewModel.points.collectAsState()  // Mengambil points dari ViewModel
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -42,7 +42,7 @@ fun HomeScreen(
                 }
             )
             CoffeeMenu(
-                menuItems = state.menuItems,
+                menuItems = state.menuItems,  // Mengakses menuItems dari HomeUiState
                 onCoffeeClick = { coffeeItem ->
                     navController.navigate(Screen.Detail.createRoute(productId = coffeeItem.id))
                 }

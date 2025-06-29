@@ -2,8 +2,6 @@ package com.example.sorelamkopitiam.presentation.screen.rewards
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sorelamkopitiam.R
-import com.example.sorelamkopitiam.domain.model.CartItem
 import com.example.sorelamkopitiam.domain.model.RewardItem
 import com.example.sorelamkopitiam.domain.repository.CartRepository
 import com.example.sorelamkopitiam.domain.repository.RewardsRepository
@@ -26,30 +24,6 @@ class RewardsViewModel @Inject constructor(
     val points = rewards.map { rewardsList ->
         rewardsList.sumOf { if (it.isRedeem) -it.points else it.points }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
-
-    fun addFreeCoffeeToCart() {
-        viewModelScope.launch {
-            // Hapus Free Coffee jika sudah ada sebelumnya
-            cartRepository.deleteByProductId(9999)
-
-            // Tambahkan Free Coffee baru
-            cartRepository.insertCartItem(
-                CartItem(
-                    id = 0,
-                    productId = 9999,
-                    name = "Free Coffee",
-                    price = 0,
-                    quantity = 1,
-                    size = "-",
-                    shot = "-",
-                    ice = "-",
-                    imageRes = R.drawable.cappuccino,
-                    priceLabel = "FREE",
-                    select = "-"
-                )
-            )
-        }
-    }
 
     fun clearAll() {
         viewModelScope.launch {
