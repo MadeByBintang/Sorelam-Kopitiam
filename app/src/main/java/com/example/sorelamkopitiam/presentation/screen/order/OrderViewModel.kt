@@ -43,25 +43,28 @@ class OrderViewModel @Inject constructor(
     fun updateOrderToHistory(order: OrderItem) = viewModelScope.launch {
         orderRepository.updateOrderStatus(order.id, "history")
 
-        val title = order.items
+        // 🔥 FIX: Hanya tambahkan poin jika harga total lebih dari 0
+        if (order.totalPrice > 0) {
+            val title = order.items
 
-        val caption = "${order.shot.ifEmpty { "-" }}, " +
-                "${order.size.ifEmpty { "-" }}, " +
-                "${order.ice.ifEmpty { "-" }} (x${order.quantity})"
+            val caption = "${order.shot.ifEmpty { "-" }}, " +
+                    "${order.size.ifEmpty { "-" }}, " +
+                    "${order.ice.ifEmpty { "-" }} (x${order.quantity})"
 
-        val points = RewardUtils.calculatePoints(order.totalPrice)
+            val points = RewardUtils.calculatePoints(order.totalPrice)
 
-        rewardsRepository.insertReward(
-            RewardItem(
-                id = 0,
-                title = title,
-                caption = caption,
-                date = RewardUtils.getCurrentDate(),
-                points = points,
-                isRedeem = false, // ✅ default false karena dari order
-                isStamp = true
+            rewardsRepository.insertReward(
+                RewardItem(
+                    id = 0,
+                    title = title,
+                    caption = caption,
+                    date = RewardUtils.getCurrentDate(),
+                    points = points,
+                    isRedeem = false,
+                    isStamp = true
+                )
             )
-        )
+        }
     }
 
     fun deleteHistoryOrder(orderId: Int) = viewModelScope.launch {
