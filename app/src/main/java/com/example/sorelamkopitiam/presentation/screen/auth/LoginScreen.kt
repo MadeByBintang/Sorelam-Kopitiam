@@ -33,7 +33,10 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
 
+    var showForgotPasswordDialog by remember { mutableStateOf(false) }
+
     val authState by viewModel.authState.collectAsState()
+    val resetPasswordState by viewModel.resetPasswordState.collectAsState()
     val context = LocalContext.current
 
     LaunchedEffect(key1 = authState) {
@@ -48,6 +51,30 @@ fun LoginScreen(
         authState.error?.let {
             Toast.makeText(context, "Error: $it", Toast.LENGTH_LONG).show()
         }
+    }
+
+    // Efek untuk reset password
+    LaunchedEffect(key1 = resetPasswordState) {
+        if (resetPasswordState.isSuccess) {
+            showForgotPasswordDialog = false
+            Toast.makeText(context, "Password reset email sent!", Toast.LENGTH_SHORT).show()
+            viewModel.resetPasswordState()
+        }
+        resetPasswordState.error?.let {
+            Toast.makeText(context, "Error: $it", Toast.LENGTH_LONG).show()
+            viewModel.resetPasswordState()
+        }
+    }
+
+    // Tampilkan Dialog jika showForgotPasswordDialog adalah true
+    if (showForgotPasswordDialog) {
+        ForgotPasswordDialog(
+            onDismiss = { showForgotPasswordDialog = false },
+            onConfirm = { emailForReset ->
+                viewModel.onForgotPasswordClicked(emailForReset)
+            },
+            isLoading = resetPasswordState.isLoading
+        )
     }
 
     Scaffold { paddingValues ->
@@ -100,7 +127,7 @@ fun LoginScreen(
             )
 
             TextButton(
-                onClick = { /* TODO: Forgot Password Logic */ },
+                onClick = { showForgotPasswordDialog = true }, // Tampilkan dialog saat diklik
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text("Forgot Password?", color = Color(0xFF007042))
@@ -135,4 +162,48 @@ fun LoginScreen(
             }
         }
     }
+}
+
+@Composable
+private fun ForgotPasswordDialog(
+    onDismiss: () -> Unit,
+    onConfirm: (String) -> Unit,
+    isLoading: Boolean
+) {
+    var email by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Reset Password") },
+        text = {
+            Column {
+                Text("Enter your email address to receive a password reset link.")
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email Address") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onConfirm(email) },
+                enabled = !isLoading
+            ) {
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
+                } else {
+                    Text("Send")
+                }
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    )
 }

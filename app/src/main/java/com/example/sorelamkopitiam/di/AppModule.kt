@@ -18,6 +18,7 @@ import com.example.sorelamkopitiam.domain.repository.OrderRepository
 import com.example.sorelamkopitiam.domain.repository.RedeemRepository
 import com.example.sorelamkopitiam.domain.repository.RewardsRepository
 import com.example.sorelamkopitiam.data.remote.AuthRemoteDataSource
+import com.example.sorelamkopitiam.domain.usecase.ForgotPasswordUseCase
 import com.example.sorelamkopitiam.domain.usecase.SignInUseCase
 import com.example.sorelamkopitiam.domain.usecase.SignUpUseCase
 import com.google.firebase.auth.FirebaseAuth
@@ -101,5 +102,10 @@ object AppModule {
     @Provides
     fun provideSignInUseCase(repository: AuthRepository): SignInUseCase {
         return SignInUseCase(repository)
+    }
+
+    @Provides
+    fun provideForgotPasswordUseCase(repository: AuthRepository): ForgotPasswordUseCase {
+        return ForgotPasswordUseCase(repository)
     }
 }
