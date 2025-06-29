@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
     val rewards = rewardsRepository.getAllRewards()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val loyaltyCount = rewards.map { rewardsList ->
-        rewardsList.count { !it.isRedeem } % 8
+    val points = rewards.map { rewardsList ->
+        rewardsList.sumOf { if (it.isRedeem) -it.points else it.points }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 }

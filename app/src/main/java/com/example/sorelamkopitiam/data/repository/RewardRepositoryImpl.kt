@@ -38,8 +38,4 @@ class RewardsRepositoryImpl @Inject constructor(
     override suspend fun clearRewards() {
         dao.clearRewards()
     }
-
-    override suspend fun clearLoyalty() {
-        dao.deleteAllNonRedeem()
-    }
 }

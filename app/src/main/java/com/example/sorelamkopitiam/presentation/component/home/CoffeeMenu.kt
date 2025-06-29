@@ -37,7 +37,7 @@ fun CoffeeMenu(
         ) {
             Text(
                 text = stringResource(R.string.choose_your_coffee),
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.White,
                 modifier = Modifier.padding(start = 12.dp, top = 24.dp, bottom = 32.dp)

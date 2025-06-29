@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.sorelamkopitiam.R
-import com.example.sorelamkopitiam.presentation.component.common.LoyaltyCard
+import com.example.sorelamkopitiam.presentation.component.common.PointsCard
 import com.example.sorelamkopitiam.presentation.component.home.CoffeeMenu
 import com.example.sorelamkopitiam.presentation.component.topbar.TopBar
 import com.example.sorelamkopitiam.presentation.navigation.Screen
@@ -19,6 +19,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val points by viewModel.points.collectAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -34,8 +35,12 @@ fun HomeScreen(
                 onProfileClick = { navController.navigate(Screen.Profile.route) }
             )
 
-            LoyaltyCard() // ✅ Sudah otomatis dari database
-
+            PointsCard(
+                points = points,
+                onRedeemClick = {
+                    navController.navigate(Screen.Redeem.route)
+                }
+            )
             CoffeeMenu(
                 menuItems = state.menuItems,
                 onCoffeeClick = { coffeeItem ->

@@ -8,5 +8,4 @@ interface RewardsRepository {
     suspend fun insertReward(reward: RewardItem)
     suspend fun deleteReward(id: Int)
     suspend fun clearRewards()
-    suspend fun clearLoyalty()
 }

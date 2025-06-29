@@ -24,7 +24,7 @@ fun PointsCard(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 22.dp)
+            .padding(horizontal = 22.dp, vertical = 24.dp)
             .background(Color(0xFF007042), RoundedCornerShape(16.dp))
             .padding(24.dp)
     ) {
@@ -34,7 +34,7 @@ fun PointsCard(
                 color = Color.White,
                 fontSize = 14.sp
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,

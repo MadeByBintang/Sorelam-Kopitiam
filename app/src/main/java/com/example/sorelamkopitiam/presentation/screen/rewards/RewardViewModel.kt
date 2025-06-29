@@ -23,24 +23,9 @@ class RewardsViewModel @Inject constructor(
     val rewards: StateFlow<List<RewardItem>> = rewardsRepository.getAllRewards()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val loyaltyCount = rewards.map { rewardsList ->
-        rewardsList.count { !it.isRedeem } % 8
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
-
     val points = rewards.map { rewardsList ->
         rewardsList.sumOf { if (it.isRedeem) -it.points else it.points }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
-
-    private val _showLoyaltyDialog = MutableStateFlow(false)
-    val showLoyaltyDialog: StateFlow<Boolean> = _showLoyaltyDialog
-
-    fun showLoyaltyDialog() {
-        _showLoyaltyDialog.value = true
-    }
-
-    fun dismissLoyaltyDialog() {
-        _showLoyaltyDialog.value = false
-    }
 
     fun addFreeCoffeeToCart() {
         viewModelScope.launch {
@@ -63,44 +48,6 @@ class RewardsViewModel @Inject constructor(
                     select = "-"
                 )
             )
-        }
-    }
-
-
-    // 🔥 Reset loyalty stamp (tanpa hapus reward poin)
-    fun clearLoyaltyProgress() {
-        viewModelScope.launch {
-            val loyaltyStamps = rewards.value.filter { it.isStamp && !it.isRedeem }
-            loyaltyStamps.take(8).forEach {
-                rewardsRepository.deleteReward(it.id)
-            }
-
-            // Tambahkan history bahwa user redeem loyalty reward
-            rewardsRepository.insertReward(
-                RewardItem(
-                    id = 0,
-                    title = "Free Coffee",
-                    caption = "Loyalty Reward Redeemed",
-                    date = getCurrentDate(),
-                    points = 0,
-                    isRedeem = true,
-                    isStamp = false // ✅ Ini bukan stamp
-                )
-            )
-        }
-    }
-
-
-    // 🔥 Cek apakah loyalty mencapai 8, jika ya munculkan dialog
-    fun checkLoyaltyReward() {
-        viewModelScope.launch {
-            val currentLoyalty = rewardsRepository.getAllRewards()
-                .first()
-                .count { !it.isRedeem }
-
-            if (currentLoyalty != 0 && currentLoyalty % 8 == 0) {
-                showLoyaltyDialog()
-            }
         }
     }
 
