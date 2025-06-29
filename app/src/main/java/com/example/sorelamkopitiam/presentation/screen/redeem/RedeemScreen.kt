@@ -1,23 +1,13 @@
 package com.example.sorelamkopitiam.presentation.screen.redeem
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,16 +25,17 @@ fun RedeemScreen(
     var selectedItem by remember { mutableStateOf<RedeemItem?>(null) }
     var showDialog by remember { mutableStateOf(false) }
     var showError by remember { mutableStateOf(false) }
+    var showSuccess by remember { mutableStateOf(false) } // ✅ Tambahan
 
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(horizontal = 24.dp) // ✅ Padding konten
+                .padding(horizontal = 24.dp)
         ) {
             TopBarRedeem(onBackClick = { navController.popBackStack() })
-            Spacer(modifier = Modifier.height(16.dp)) // ✅ Tambahkan jarak dari topbar
+            Spacer(modifier = Modifier.height(16.dp))
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -63,7 +54,6 @@ fun RedeemScreen(
         }
     }
 
-    // ✅ Dialog tetap di luar Scaffold
     if (showDialog && selectedItem != null) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
@@ -73,7 +63,10 @@ fun RedeemScreen(
                 TextButton(onClick = {
                     viewModel.redeemItem(
                         item = selectedItem!!,
-                        onSuccess = { showDialog = false },
+                        onSuccess = {
+                            showDialog = false
+                            showSuccess = true // ✅ Tampilkan dialog sukses
+                        },
                         onFail = {
                             showDialog = false
                             showError = true
@@ -88,6 +81,20 @@ fun RedeemScreen(
                     Text("Cancel")
                 }
             }
+        )
+    }
+
+    if (showSuccess) {
+        AlertDialog(
+            onDismissRequest = { showSuccess = false },
+            title = { Text("Success") },
+            text = { Text("You have successfully redeemed ${selectedItem?.name}.") },
+            confirmButton = {
+                TextButton(onClick = { showSuccess = false }) {
+                    Text("OK")
+                }
+            },
+            dismissButton = {}
         )
     }
 

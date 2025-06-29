@@ -8,27 +8,50 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.sorelamkopitiam.presentation.component.common.LoyaltyCard
 import com.example.sorelamkopitiam.presentation.component.common.PointsCard
+import com.example.sorelamkopitiam.presentation.component.dialog.LoyaltyRewardDialog
 import com.example.sorelamkopitiam.presentation.component.topbar.TopBarRewards
 import com.example.sorelamkopitiam.presentation.navigation.Screen
 
 @Composable
 fun RewardsScreen(
-    navController: NavHostController, // ✅ Tambahkan ini
+    navController: NavHostController,
     viewModel: RewardsViewModel = hiltViewModel()
 ) {
     val rewards by viewModel.rewards.collectAsState()
+    val points by viewModel.points.collectAsState()
+    val showLoyaltyDialog by viewModel.showLoyaltyDialog.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.checkLoyaltyReward()
+    }
 
     Column {
         TopBarRewards()
         Spacer(modifier = Modifier.height(16.dp))
-        LoyaltyCard(current = 4, total = 8) // Ubah sesuai logic kamu
+
+        LoyaltyCard() // ✅ Fetch otomatis dari database
+
         PointsCard(
-            points = rewards.sumOf { it.points },
+            points = points,
             onRedeemClick = {
                 navController.navigate(Screen.Redeem.route)
             }
         )
+
         Spacer(modifier = Modifier.height(12.dp))
+
         HistoryRewards(histories = rewards)
+    }
+
+    if (showLoyaltyDialog) {
+        LoyaltyRewardDialog(
+            onDismiss = { viewModel.dismissLoyaltyDialog() },
+            onOrderNow = {
+                viewModel.addFreeCoffeeToCart()
+                viewModel.clearLoyaltyProgress() // ✅ Reset loyalty
+                viewModel.dismissLoyaltyDialog()
+                navController.navigate(Screen.Cart.route)
+            }
+        )
     }
 }

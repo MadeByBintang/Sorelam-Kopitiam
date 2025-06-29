@@ -31,4 +31,12 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun clear() {
         dao.clearCart()
     }
+
+    override suspend fun deleteByProductId(productId: Int) {
+        dao.deleteByProductId(productId)
+    }
+    override suspend fun insertCartItem(item: CartItem) {
+        dao.insertCartItem(item.toCartEntity())
+    }
+
 }

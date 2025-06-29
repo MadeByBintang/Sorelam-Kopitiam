@@ -22,7 +22,8 @@ fun CartItemRow(
     onAdd: () -> Unit,
     onRemove: () -> Unit,
     onDelete: () -> Unit,
-    onEdit: () -> Unit // ✅ Tambahkan untuk edit
+    onEdit: () -> Unit,
+    isEditable: Boolean
 ) {
     Row(
         modifier = Modifier
@@ -32,7 +33,7 @@ fun CartItemRow(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // 🔥 Image Produk
+        // 🔥 Gambar Produk
         Image(
             painter = painterResource(id = item.imageRes),
             contentDescription = item.name,
@@ -43,48 +44,57 @@ fun CartItemRow(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        // 🔥 Nama & Quantity
+        // 🔥 Nama & (Kalau Editable ada Quantity)
         Column(modifier = Modifier.weight(1f)) {
             Text(item.name, fontSize = 14.sp)
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    onClick = onRemove,
-                    modifier = Modifier.size(26.dp)
+            if (isEditable) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.remove),
-                        contentDescription = "Kurangi",
-                        modifier = Modifier.size(18.dp),
-                        tint = Color.Black
-                    )
-                }
+                    IconButton(
+                        onClick = onRemove,
+                        modifier = Modifier.size(26.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.remove),
+                            contentDescription = "Kurangi",
+                            modifier = Modifier.size(18.dp),
+                            tint = Color.Black
+                        )
+                    }
 
+                    Text(
+                        "${item.quantity}",
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(horizontal = 4.dp)
+                    )
+
+                    IconButton(
+                        onClick = onAdd,
+                        modifier = Modifier.size(26.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.add),
+                            contentDescription = "Tambah",
+                            modifier = Modifier.size(12.dp),
+                            tint = Color.Black
+                        )
+                    }
+                }
+            } else {
+                // 🔥 Kalau tidak editable, cuma tampilkan quantity
                 Text(
-                    "${item.quantity}",
+                    "x${item.quantity}",
                     fontSize = 14.sp,
-                    modifier = Modifier.padding(horizontal = 4.dp)
+                    color = Color.Gray
                 )
-
-                IconButton(
-                    onClick = onAdd,
-                    modifier = Modifier.size(26.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.add),
-                        contentDescription = "Tambah",
-                        modifier = Modifier.size(12.dp),
-                        tint = Color.Black
-                    )
-                }
             }
         }
 
-        // 🔥 Harga & Aksi Delete + Edit
+        // 🔥 Harga & Aksi
         Column(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.SpaceBetween
@@ -95,16 +105,18 @@ fun CartItemRow(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Row {
-                IconButton(
-                    onClick = onEdit,
-                    modifier = Modifier.size(26.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.edit),
-                        contentDescription = "Edit",
-                        modifier = Modifier.size(18.dp),
-                        tint = Color(0xFF007042) // 🔥 Hijau
-                    )
+                if (isEditable) {
+                    IconButton(
+                        onClick = onEdit,
+                        modifier = Modifier.size(26.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.edit),
+                            contentDescription = "Edit",
+                            modifier = Modifier.size(18.dp),
+                            tint = Color(0xFF007042)
+                        )
+                    }
                 }
                 IconButton(
                     onClick = onDelete,
@@ -114,7 +126,7 @@ fun CartItemRow(
                         painter = painterResource(id = R.drawable.delete),
                         contentDescription = "Hapus",
                         modifier = Modifier.size(20.dp),
-                        tint = Color(0xFFFF4C4C) // 🔥 Merah
+                        tint = Color(0xFFFF4C4C)
                     )
                 }
             }

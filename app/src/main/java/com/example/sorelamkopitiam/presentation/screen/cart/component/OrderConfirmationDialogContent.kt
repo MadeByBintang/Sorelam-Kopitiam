@@ -69,7 +69,6 @@ fun OrderConfirmationDialogContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         SummaryRow(R.string.subtotal, "Rp $totalPrice")
-        SummaryRow(R.string.tax, "Rp 5.000")
         SummaryRow(R.string.delivery_fee, "Rp 10.000")
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -86,7 +85,7 @@ fun OrderConfirmationDialogContent(
                     fontSize = 16.sp
                 )
                 Text(
-                    text = "Rp ${totalPrice + 15000}", // Total + tax + delivery
+                    text = "Rp ${totalPrice + 10000}", // Total + tax + delivery
                     fontWeight = FontWeight.Bold,
                     fontSize = 28.sp
                 )

@@ -3,6 +3,7 @@ package com.example.sorelamkopitiam.presentation.screen.order
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sorelamkopitiam.domain.model.OrderItem
+import com.example.sorelamkopitiam.domain.model.RewardItem
 import com.example.sorelamkopitiam.domain.repository.OrderRepository
 import com.example.sorelamkopitiam.domain.repository.RewardsRepository
 import com.example.sorelamkopitiam.util.RewardUtils
@@ -42,10 +43,8 @@ class OrderViewModel @Inject constructor(
     fun updateOrderToHistory(order: OrderItem) = viewModelScope.launch {
         orderRepository.updateOrderStatus(order.id, "history")
 
-        // 🔥 Title hanya nama kopinya
         val title = order.items
 
-        // 🔥 Caption seperti di DetailScreen atau CartScreen
         val caption = "${order.shot.ifEmpty { "-" }}, " +
                 "${order.size.ifEmpty { "-" }}, " +
                 "${order.ice.ifEmpty { "-" }} (x${order.quantity})"
@@ -53,10 +52,15 @@ class OrderViewModel @Inject constructor(
         val points = RewardUtils.calculatePoints(order.totalPrice)
 
         rewardsRepository.insertReward(
-            title = title,
-            date = RewardUtils.getCurrentDate(),
-            points = points,
-            caption = caption // ✅ tambahkan field caption
+            RewardItem(
+                id = 0,
+                title = title,
+                caption = caption,
+                date = RewardUtils.getCurrentDate(),
+                points = points,
+                isRedeem = false, // ✅ default false karena dari order
+                isStamp = true
+            )
         )
     }
 

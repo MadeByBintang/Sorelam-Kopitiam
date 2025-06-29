@@ -10,23 +10,24 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class OrderRepositoryImpl @Inject constructor(
-    private val dao: OrderDao
+    private val orderDao: OrderDao
 ) : OrderRepository {
+
     override fun getOrdersByStatus(status: String): Flow<List<OrderItem>> {
-        return dao.getOrdersByStatus(status).map { list ->
-            list.map { it.toOrderItem() }
+        return orderDao.getOrdersByStatus(status).map { entities ->
+            entities.map { it.toOrderItem() }
         }
     }
 
     override suspend fun insertOrder(order: OrderItem) {
-        dao.insertOrder(order.toOrderEntity())
+        orderDao.insertOrder(order.toOrderEntity())
     }
 
     override suspend fun updateOrderStatus(orderId: Int, newStatus: String) {
-        dao.updateOrderStatus(orderId, newStatus)
+        orderDao.updateOrderStatus(orderId, newStatus)
     }
 
     override suspend fun deleteOrderById(orderId: Int) {
-        dao.deleteOrderById(orderId)
+        orderDao.deleteOrderById(orderId)
     }
 }

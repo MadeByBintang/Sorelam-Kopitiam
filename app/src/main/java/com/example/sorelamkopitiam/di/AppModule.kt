@@ -35,16 +35,17 @@ object AppModule {
             AppDatabase::class.java,
             "sorelam_db"
         )
-            .fallbackToDestructiveMigration(true) // ✅ Akan hapus dan rebuild DB otomatis saat versi naik
+            .fallbackToDestructiveMigration(true)
             .build()
     }
 
-    @Provides
-    fun provideCartDao(db: AppDatabase): CartDao = db.cartDao()
+    // ✅ DAO
+    @Provides fun provideCartDao(db: AppDatabase): CartDao = db.cartDao()
+    @Provides fun provideOrderDao(db: AppDatabase): OrderDao = db.orderDao()
+    @Provides fun provideRewardDao(db: AppDatabase): RewardDao = db.rewardDao()
+    @Provides fun provideRedeemDao(db: AppDatabase): RedeemDao = db.redeemDao()
 
-    @Provides
-    fun provideOrderDao(db: AppDatabase): OrderDao = db.orderDao()
-
+    // ✅ Repository
     @Provides
     fun provideCartRepository(dao: CartDao): CartRepository =
         CartRepositoryImpl(dao)
@@ -54,16 +55,9 @@ object AppModule {
         OrderRepositoryImpl(dao)
 
     @Provides
-    fun provideRewardDao(db: AppDatabase): RewardDao = db.rewardDao()
-
-    @Provides
     @Singleton
-    fun provideRewardsRepository(dao: RewardDao): RewardsRepository {
-        return RewardsRepositoryImpl(dao)
-    }
-
-    @Provides
-    fun provideRedeemDao(db: AppDatabase): RedeemDao = db.redeemDao()
+    fun provideRewardsRepository(dao: RewardDao): RewardsRepository =
+        RewardsRepositoryImpl(dao)
 
     @Provides
     fun provideRedeemRepository(dao: RedeemDao): RedeemRepository =

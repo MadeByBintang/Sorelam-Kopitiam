@@ -31,15 +31,14 @@ fun HistoryRewards(histories: List<RewardItem>) {
         ) {
             items(histories) { reward ->
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column(
-                            modifier = Modifier.weight(1f) // ⬅️ Ini yang membuat text kiri mengambil ruang yang fleksibel
+                            modifier = Modifier.weight(1f)
                         ) {
                             Text(
                                 text = reward.title,
@@ -56,14 +55,14 @@ fun HistoryRewards(histories: List<RewardItem>) {
                                 color = Color.Gray,
                                 fontSize = 12.sp
                             )
-                            Spacer(modifier = Modifier.height(8.dp)) // ⬅️ Tambahkan ini agar tidak mepet dengan garis
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         Text(
-                            text = "+${reward.points} pts",
+                            text = (if (reward.isRedeem) "-${reward.points}" else "+${reward.points}") + " pts",
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF2C6A46),
-                            modifier = Modifier.padding(start = 12.dp) // ✅ Optional biar tidak terlalu nempel
+                            color = if (reward.isRedeem) Color.Red else Color(0xFF2C6A46),
+                            modifier = Modifier.padding(start = 12.dp)
                         )
                     }
 

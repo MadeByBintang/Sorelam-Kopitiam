@@ -10,5 +10,6 @@ data class RewardEntity(
     val title: String,
     val caption: String, // 🔥 Tambah caption
     val date: String,
-    val points: Int
+    val points: Int,
+    val isRedeem: Boolean = false // Tambah status redeem
 )

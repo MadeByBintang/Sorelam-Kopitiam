@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 data class OrderEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: String,
-    val items: String,       // List item disimpan sebagai String (misal join dengan koma)
-    val quantity: Int, // ✅ Ini wajib ada
+    val items: String,
+    val quantity: Int,
     val totalPrice: Int,
-    val status: String,       // "ongoing" atau "history"
-    val shot: String,    // ⬅️ Tambah ini
-    val size: String,    // ⬅️ Tambah ini
-    val ice: String      // ⬅️ Tambah ini
+    val status: String,  // "ongoing" atau "history"
+    val shot: String,
+    val size: String,
+    val ice: String
 )

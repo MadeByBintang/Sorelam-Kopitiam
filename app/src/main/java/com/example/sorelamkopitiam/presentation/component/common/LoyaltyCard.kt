@@ -5,7 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,14 +15,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.sorelamkopitiam.R
+import com.example.sorelamkopitiam.presentation.viewmodel.LoyaltyCardViewModel
 
 @Composable
 fun LoyaltyCard(
-    current: Int,
-    total: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: LoyaltyCardViewModel = hiltViewModel()
 ) {
+    val loyalty by viewModel.loyaltyCount.collectAsState()
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -41,7 +44,7 @@ fun LoyaltyCard(
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = "$current / $total",
+                text = "${loyalty % 8} / 8",
                 color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium
@@ -60,8 +63,8 @@ fun LoyaltyCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(1.dp, Alignment.CenterHorizontally)
             ) {
-                repeat(total) { index ->
-                    val filled = index < current
+                repeat(8) { index ->
+                    val filled = index < (loyalty % 8)
                     val iconRes = if (filled) {
                         R.drawable.coffee_cup_fill
                     } else {

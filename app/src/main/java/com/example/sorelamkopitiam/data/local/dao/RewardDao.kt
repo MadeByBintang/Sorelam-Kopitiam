@@ -17,4 +17,7 @@ interface RewardDao {
 
     @Query("DELETE FROM rewards")
     suspend fun clearRewards()
+
+    @Query("DELETE FROM rewards WHERE isRedeem = 0")
+    suspend fun deleteAllNonRedeem()
 }

@@ -1,6 +1,8 @@
 package com.example.sorelamkopitiam.presentation.screen.cart
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -22,12 +24,11 @@ import com.example.sorelamkopitiam.presentation.screen.cart.component.OrderConfi
 @Composable
 fun CartScreen(
     navController: NavHostController,
-    cartViewModel: CartViewModel = hiltViewModel() // ✅ Tambahkan ini
+    cartViewModel: CartViewModel = hiltViewModel()
 ) {
     val cartItems by cartViewModel.cartItems.collectAsState()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    // 🔥 Bottom Sheet Konfirmasi Pesanan
     if (cartViewModel.showSheet) {
         ModalBottomSheet(
             onDismissRequest = { cartViewModel.toggleSheet(false) },
@@ -72,46 +73,60 @@ fun CartScreen(
                         color = Color.Gray
                     )
                 }
-            }
-            else {
-                Column {
-                    cartItems.forEach { item ->
+            } else {
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(bottom = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(
+                        items = cartItems,
+                        key = { it.id }
+                    ) { item ->
+
+                        val isFree = cartViewModel.isFreeCoffee(item) // 🔥 Letakkan disini
+
                         CartItemRow(
                             item = item,
                             onAdd = {
-                                cartViewModel.updateCart(item.copy(quantity = item.quantity + 1))
+                                if (!isFree) {
+                                    cartViewModel.updateCart(item.copy(quantity = item.quantity + 1))
+                                }
                             },
                             onRemove = {
-                                if (item.quantity > 1) {
-                                    cartViewModel.updateCart(item.copy(quantity = item.quantity - 1))
-                                } else {
-                                    cartViewModel.deleteCart(item)
+                                if (!isFree) {
+                                    if (item.quantity > 1) {
+                                        cartViewModel.updateCart(item.copy(quantity = item.quantity - 1))
+                                    } else {
+                                        cartViewModel.deleteCart(item)
+                                    }
                                 }
                             },
                             onDelete = {
                                 cartViewModel.deleteCart(item)
                             },
                             onEdit = {
-                                navController.navigate(
-                                    Screen.Detail.createRoute(
-                                        productId = item.productId, // ID produk asli
-                                        cartId = item.id // ID item cart yang mau diedit
+                                if (!isFree) {
+                                    navController.navigate(
+                                        Screen.Detail.createRoute(
+                                            productId = item.productId,
+                                            cartId = item.id
+                                        )
                                     )
-                                )
-                            }
-
+                                }
+                            },
+                            isEditable = !isFree // 🔥 Disable plus-minus dan edit untuk free coffee
                         )
-                        Spacer(modifier = Modifier.height(12.dp))
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
-
             // 🔥 Total Price
             val totalPrice = cartItems.sumOf { it.price * it.quantity }
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -125,8 +140,6 @@ fun CartScreen(
                     color = Color(0xFF007042)
                 )
             }
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             Button(
                 onClick = {

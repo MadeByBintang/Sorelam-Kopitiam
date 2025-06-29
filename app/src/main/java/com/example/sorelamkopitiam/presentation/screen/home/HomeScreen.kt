@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.sorelamkopitiam.R
 import com.example.sorelamkopitiam.presentation.component.common.LoyaltyCard
@@ -15,7 +16,7 @@ import com.example.sorelamkopitiam.presentation.navigation.Screen
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: HomeViewModel = remember { HomeViewModel() }
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -32,7 +33,9 @@ fun HomeScreen(
                 onCartClick = { navController.navigate(Screen.Cart.route) },
                 onProfileClick = { navController.navigate(Screen.Profile.route) }
             )
-            LoyaltyCard(current = 4, total = 8)
+
+            LoyaltyCard() // ✅ Sudah otomatis dari database
+
             CoffeeMenu(
                 menuItems = state.menuItems,
                 onCoffeeClick = { coffeeItem ->

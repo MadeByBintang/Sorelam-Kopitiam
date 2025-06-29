@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RewardsRepository {
     fun getAllRewards(): Flow<List<RewardItem>>
-    suspend fun insertReward(title: String, caption: String, date: String, points: Int)
+    suspend fun insertReward(reward: RewardItem)
     suspend fun deleteReward(id: Int)
     suspend fun clearRewards()
+    suspend fun clearLoyalty()
 }

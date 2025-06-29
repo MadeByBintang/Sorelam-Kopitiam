@@ -75,4 +75,6 @@ class CartViewModel @Inject constructor(
             clearCart()
         }
     }
+
+    fun isFreeCoffee(item: CartItem): Boolean = item.productId == 9999
 }

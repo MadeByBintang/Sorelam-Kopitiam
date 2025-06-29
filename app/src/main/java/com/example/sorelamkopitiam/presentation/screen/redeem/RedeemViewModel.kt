@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sorelamkopitiam.R
 import com.example.sorelamkopitiam.domain.model.RedeemItem
+import com.example.sorelamkopitiam.domain.model.RewardItem
+import com.example.sorelamkopitiam.domain.repository.OrderRepository
 import com.example.sorelamkopitiam.domain.repository.RewardsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -21,7 +23,8 @@ data class RedeemUiState(
 
 @HiltViewModel
 class RedeemViewModel @Inject constructor(
-    private val rewardsRepository: RewardsRepository
+    private val rewardsRepository: RewardsRepository,
+    private val orderRepository: OrderRepository // ✅ Tambahkan
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RedeemUiState())
@@ -48,7 +51,7 @@ class RedeemViewModel @Inject constructor(
         viewModelScope.launch {
             val totalPoints = rewardsRepository.getAllRewards()
                 .first()
-                .sumOf { it.points }
+                .sumOf { it.points * if (it.isRedeem) -1 else 1 } // ✅ Perhitungan benar
             _uiState.update { it.copy(points = totalPoints) }
         }
     }
@@ -56,12 +59,33 @@ class RedeemViewModel @Inject constructor(
     fun redeemItem(item: RedeemItem, onSuccess: () -> Unit, onFail: () -> Unit) {
         if (_uiState.value.points >= item.points) {
             viewModelScope.launch {
+                // ✅ Masuk ke rewards
                 rewardsRepository.insertReward(
-                    title = "Redeemed ${item.name}",
-                    caption = "Valid until ${item.validUntil}",
-                    date = getCurrentDate(),
-                    points = -item.points // 🔥 poin dikurangi
+                    RewardItem(
+                        id = 0,
+                        title = "Redeemed ${item.name}",
+                        caption = "Valid until ${item.validUntil}",
+                        date = getCurrentDate(),
+                        points = item.points,
+                        isRedeem = true
+                    )
                 )
+
+                // ✅ Masuk ke orders sebagai ongoing
+                orderRepository.insertOrder(
+                    com.example.sorelamkopitiam.domain.model.OrderItem(
+                        id = 0,
+                        date = getCurrentDate(),
+                        items = item.name,
+                        quantity = 1,
+                        totalPrice = 0,
+                        status = "ongoing",
+                        shot = "-",
+                        size = "-",
+                        ice = "-"
+                    )
+                )
+
                 loadPoints()
                 onSuccess()
             }

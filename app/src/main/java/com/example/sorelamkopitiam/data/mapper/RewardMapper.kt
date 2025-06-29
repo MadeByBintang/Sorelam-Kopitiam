@@ -9,6 +9,7 @@ fun RewardEntity.toReward(): RewardItem {
         title = title,
         caption = caption,
         date = date,
-        points = points
+        points = points,
+        isRedeem = isRedeem
     )
 }

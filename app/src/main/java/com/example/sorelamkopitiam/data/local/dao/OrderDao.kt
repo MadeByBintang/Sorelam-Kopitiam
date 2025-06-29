@@ -17,5 +17,5 @@ interface OrderDao {
     suspend fun updateOrderStatus(orderId: Int, newStatus: String)
 
     @Query("DELETE FROM orders WHERE id = :orderId")
-    suspend fun deleteOrderById(orderId: Int) // ✅ Tambahkan
+    suspend fun deleteOrderById(orderId: Int)
 }

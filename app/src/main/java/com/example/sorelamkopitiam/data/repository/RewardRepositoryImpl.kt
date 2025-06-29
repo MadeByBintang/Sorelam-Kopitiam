@@ -8,21 +8,25 @@ import com.example.sorelamkopitiam.domain.repository.RewardsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlin.collections.map
 
 class RewardsRepositoryImpl @Inject constructor(
     private val dao: RewardDao
 ) : RewardsRepository {
+
     override fun getAllRewards(): Flow<List<RewardItem>> {
         return dao.getAllRewards().map { list -> list.map { it.toReward() } }
     }
 
-    override suspend fun insertReward(title: String, caption: String, date: String, points: Int) {
+    override suspend fun insertReward(reward: RewardItem) {
         dao.insertReward(
             RewardEntity(
-                title = title,
-                caption = caption,
-                date = date,
-                points = points
+                id = reward.id,
+                title = reward.title,
+                caption = reward.caption,
+                date = reward.date,
+                points = reward.points,
+                isRedeem = reward.isRedeem
             )
         )
     }
@@ -33,5 +37,9 @@ class RewardsRepositoryImpl @Inject constructor(
 
     override suspend fun clearRewards() {
         dao.clearRewards()
+    }
+
+    override suspend fun clearLoyalty() {
+        dao.deleteAllNonRedeem()
     }
 }
