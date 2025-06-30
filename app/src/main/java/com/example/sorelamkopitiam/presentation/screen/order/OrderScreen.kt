@@ -35,7 +35,7 @@ fun OrderScreen(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFF007042),
                 indicator = { tabPositions ->
-                    TabRowDefaults.Indicator(
+                    TabRowDefaults.SecondaryIndicator(
                         Modifier
                             .tabIndicatorOffset(tabPositions[selectedTab])
                             .height(3.dp),
