@@ -42,6 +42,18 @@ android {
     buildFeatures {
         compose = true
     }
+    sourceSets {
+        getByName("debug") {
+            java {
+                srcDirs("src\\debug\\java", "src\\debug\\java")
+            }
+        }
+        getByName("release") {
+            java {
+                srcDirs("src\\release\\java", "src\\release\\java")
+            }
+        }
+    }
 }
 
 dependencies {
