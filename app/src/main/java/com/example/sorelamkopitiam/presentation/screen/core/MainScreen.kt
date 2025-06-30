@@ -1,5 +1,6 @@
 package com.example.sorelamkopitiam.presentation.screen.core
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.Scaffold
@@ -11,6 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.sorelamkopitiam.presentation.navigation.BottomNavigationBar
 import com.example.sorelamkopitiam.presentation.navigation.Screen
 import com.example.sorelamkopitiam.presentation.navigation.mainNavGraph
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") // -> 2. Tambahkan anotasi ini
 
 @Composable
 fun MainScreen(
