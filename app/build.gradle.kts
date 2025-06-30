@@ -6,6 +6,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services") // <-- TAMBAHKAN PLUGIN INI
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -103,6 +104,7 @@ dependencies {
     implementation("com.google.firebase:firebase-appcheck-playintegrity") // <-- TAMBAHKAN INI
     debugImplementation("com.google.firebase:firebase-appcheck-debug")
 
+    implementation("com.google.firebase:firebase-crashlytics")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
