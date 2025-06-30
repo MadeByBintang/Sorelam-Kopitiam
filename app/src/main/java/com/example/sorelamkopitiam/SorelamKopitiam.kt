@@ -16,14 +16,11 @@ class SorelamKopitiam : Application() {
         FirebaseApp.initializeApp(this)
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
 
-        // --- GANTI BLOK KODE LAMA DENGAN YANG INI ---
         if (BuildConfig.DEBUG) {
-            // Gunakan Debug Provider untuk build debug
             firebaseAppCheck.installAppCheckProviderFactory(
                 DebugAppCheckProviderFactory.getInstance()
             )
         } else {
-            // Gunakan Play Integrity untuk build release
             firebaseAppCheck.installAppCheckProviderFactory(
                 PlayIntegrityAppCheckProviderFactory.getInstance()
             )
