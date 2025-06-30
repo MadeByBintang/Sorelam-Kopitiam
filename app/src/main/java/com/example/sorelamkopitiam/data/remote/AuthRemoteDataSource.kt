@@ -10,7 +10,6 @@ class AuthRemoteDataSource @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore
 ) {
-    // --- TAMBAHKAN PROPERTI INI ---
     val currentUser: com.google.firebase.auth.FirebaseUser?
         get() = firebaseAuth.currentUser
 

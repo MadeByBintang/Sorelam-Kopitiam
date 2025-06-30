@@ -10,7 +10,6 @@ class AppNavigationViewModel @Inject constructor(
     private val repo: AuthRepository
 ) : ViewModel() {
 
-    // Fungsi ini akan kita gunakan untuk mengecek status login user
     fun isLoggedIn(): Boolean {
         return repo.currentUser != null
     }

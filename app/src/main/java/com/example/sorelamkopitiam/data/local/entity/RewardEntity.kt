@@ -8,8 +8,8 @@ data class RewardEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
-    val caption: String, // 🔥 Tambah caption
+    val caption: String,
     val date: String,
     val points: Int,
-    val isRedeem: Boolean = false // Tambah status redeem
+    val isRedeem: Boolean = false
 )

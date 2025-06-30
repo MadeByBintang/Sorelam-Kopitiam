@@ -19,7 +19,7 @@ import com.example.sorelamkopitiam.data.local.entity.RewardEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao
     abstract fun orderDao(): OrderDao
-    abstract fun rewardDao(): RewardDao // ✅ jangan lupa DAO-nya juga
+    abstract fun rewardDao(): RewardDao
     abstract fun redeemDao(): RedeemDao
 
 }

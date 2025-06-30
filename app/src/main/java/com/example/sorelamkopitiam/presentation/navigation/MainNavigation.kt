@@ -15,7 +15,6 @@ import com.example.sorelamkopitiam.presentation.screen.profile.ProfileScreen
 import com.example.sorelamkopitiam.presentation.screen.redeem.RedeemScreen
 import com.example.sorelamkopitiam.presentation.screen.rewards.RewardsScreen
 
-// --- PERBAIKI TANDA TANGAN FUNGSI ---
 fun NavGraphBuilder.mainNavGraph(
     mainNavController: NavHostController,
     rootNavController: NavController
@@ -35,8 +34,8 @@ fun NavGraphBuilder.mainNavGraph(
     // --- PERBAIKI PEMANGGILAN PROFILSCREEN ---
     composable(Screen.Main.Profile.route) {
         ProfileScreen(
-            navController = mainNavController, // Untuk navigasi di dalam main_graph
-            rootNavController = rootNavController  // Untuk navigasi keluar dari main_graph
+            navController = mainNavController,
+            rootNavController = rootNavController
         )
     }
     composable(Screen.Main.OrderSuccess.route) {

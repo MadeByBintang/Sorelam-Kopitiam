@@ -5,7 +5,7 @@ import com.example.sorelamkopitiam.domain.model.CartItem
 
 fun CartEntity.toCartItem() = CartItem(
     id = id,
-    productId = productId, // ✅ Tambah ini
+    productId = productId,
     name = name,
     priceLabel = priceLabel,
     price = price,
@@ -19,7 +19,7 @@ fun CartEntity.toCartItem() = CartItem(
 
 fun CartItem.toCartEntity() = CartEntity(
     id = id,
-    productId = productId, // ✅ Tambah ini
+    productId = productId,
     name = name,
     priceLabel = priceLabel,
     price = price,

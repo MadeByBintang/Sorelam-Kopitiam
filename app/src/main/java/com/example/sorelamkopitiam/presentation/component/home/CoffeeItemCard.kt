@@ -28,7 +28,7 @@ fun CoffeeItemCard(
             .width(165.dp)
             .height(190.dp)
             .background(Color.White, shape = RoundedCornerShape(16.dp))
-            .clickable { onCoffeeClick(coffee) } // ✅ Pindahkan ke sini
+            .clickable { onCoffeeClick(coffee) }
             .padding(start = 12.dp)
     ) {
         Image(

@@ -9,7 +9,6 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val remoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
-    // --- TAMBAHKAN KATA 'override' DI SINI ---
     override val currentUser: FirebaseUser?
         get() = remoteDataSource.currentUser // Ambil dari remote data source
 

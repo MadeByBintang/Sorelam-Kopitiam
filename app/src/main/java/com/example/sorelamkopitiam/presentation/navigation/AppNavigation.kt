@@ -12,7 +12,7 @@ import com.example.sorelamkopitiam.presentation.screen.splash.SplashScreen
 fun AppNavigation(
     viewModel: AppNavigationViewModel = hiltViewModel()
 ) {
-    val navController = rememberNavController() // Ini adalah rootNavController
+    val navController = rememberNavController()
 
     val postSplashDestination = if (viewModel.isLoggedIn()) {
         Screen.Main.route
@@ -37,7 +37,6 @@ fun AppNavigation(
         authNavGraph(navController = navController)
 
         composable(route = Screen.Main.route) {
-            // --- TERUSKAN ROOT NAV CONTROLLER KE MAINSCREEN ---
             MainScreen(rootNavController = navController)
         }
     }

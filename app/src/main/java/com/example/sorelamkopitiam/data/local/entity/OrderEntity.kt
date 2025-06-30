@@ -10,7 +10,7 @@ data class OrderEntity(
     val items: String,
     val quantity: Int,
     val totalPrice: Int,
-    val status: String,  // "ongoing" atau "history"
+    val status: String,
     val shot: String,
     val size: String,
     val ice: String

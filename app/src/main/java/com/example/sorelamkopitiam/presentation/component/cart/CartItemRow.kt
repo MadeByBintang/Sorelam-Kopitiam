@@ -33,7 +33,6 @@ fun CartItemRow(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // 🔥 Gambar Produk
         Image(
             painter = painterResource(id = item.imageRes),
             contentDescription = item.name,
@@ -44,7 +43,6 @@ fun CartItemRow(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        // 🔥 Nama & (Kalau Editable ada Quantity)
         Column(modifier = Modifier.weight(1f)) {
             Text(item.name, fontSize = 14.sp)
 
@@ -85,7 +83,6 @@ fun CartItemRow(
                     }
                 }
             } else {
-                // 🔥 Kalau tidak editable, cuma tampilkan quantity
                 Text(
                     "x${item.quantity}",
                     fontSize = 14.sp,
@@ -94,7 +91,6 @@ fun CartItemRow(
             }
         }
 
-        // 🔥 Harga & Aksi
         Column(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.SpaceBetween
